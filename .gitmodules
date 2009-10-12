@@ -1,3 +1,9 @@
 [submodule "src/com/collectivecolors/data"]
 	path = src/com/collectivecolors/data
 	url = git@github.com:collectivecolors/flex-com.collectivecolors.data.git
+[submodule "src/com/collectivecolors/errors"]
+	path = src/com/collectivecolors/errors
+	url = git@github.com:collectivecolors/flex-com.collectivecolors.errors.git
+[submodule "src/com/collectivecolors/validators"]
+	path = src/com/collectivecolors/validators
+	url = git@github.com:collectivecolors/flex-com.collectivecolors.validators.git
