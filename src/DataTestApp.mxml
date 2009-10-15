@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+<com:ApplicationClass xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:com="com.*" layout="absolute" width="480" height="240">
+	<mx:VBox width="100%" horizontalAlign="center" verticalGap="5" verticalCenter="0" horizontalCenter="0" height="95%">
+		<mx:HBox width="95%" horizontalAlign="center" horizontalGap="5" verticalAlign="middle" borderStyle="none" cornerRadius="0">
+			<mx:TextInput width="100%" id="txtiUrlInput"/>
+			<mx:Button label="Add URL" width="100" id="btnAdd"/>
+		</mx:HBox>
+		<mx:HRule width="95%"/>
+		<mx:List width="95%" height="100%" id="lstUrls" allowMultipleSelection="true"></mx:List>
+		<mx:Button label="Delete URL" id="btnDelete" width="100"/>
+	</mx:VBox>
   
-</mx:Application>
+</com:ApplicationClass>
