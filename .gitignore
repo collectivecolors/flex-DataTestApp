@@ -3,3 +3,8 @@
 .project
 .settings/
 bin-debug/
+ccController.properties
+ccControls.properties
+ccModel.properties
+ccRpc.properties
+ccView.properties
