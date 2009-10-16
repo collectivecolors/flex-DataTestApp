@@ -1,4 +1,4 @@
-package com
+package application
 {
 	import com.collectivecolors.data.*;
 	import com.collectivecolors.errors.*;
