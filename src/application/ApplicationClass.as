@@ -23,6 +23,8 @@ package application
 		
 		public var txtiUrlInput:TextInput;
 		public var btnAdd:Button;
+		public var txtiExtenInput:TextInput;
+		public var btnExten:Button;
 		public var txtiProtInput:TextInput;
 		public var btnProt:Button;
 		public var lstUrls:List;
@@ -33,13 +35,10 @@ package application
 		 **/
 		 
 		 public var urlSet:URLSet;
-		 /*Currently accepted protocols
-		 *
-		 * This array is required since the URLSet protocols generally won't be changed during 
-		 * runtime past the initial config and, as such, does not include a way to retrieve a 
-		 * list of the protocols it is currently accepting
-		 */
+		 //Currently accepted protocols
 		 public var protCache:Array = ['http', 'https'];
+		 //Currently accepted extensions, empty = accept all
+		 public var extenCache:Array = [];
 		
 		/**
 		 * Constructor And Creation Complete Handler
@@ -56,9 +55,15 @@ package application
 			btnAdd.addEventListener(MouseEvent.CLICK, BtnAddHandler);
 			btnDelete.addEventListener(MouseEvent.CLICK, BtnDeleteHandler);
 			btnProt.addEventListener(MouseEvent.CLICK, BtnProtHandler);
+			btnExten.addEventListener(MouseEvent.CLICK, BtnExtenHandler);
 			//Add event listeners to text inputs
 			txtiProtInput.addEventListener(FocusEvent.FOCUS_IN, TxtiProtInputHandler);
 			txtiProtInput.addEventListener(FocusEvent.FOCUS_OUT, TxtiProtInputHandler);
+			txtiExtenInput.addEventListener(FocusEvent.FOCUS_IN, TxtiExtenInputHandler);
+			txtiExtenInput.addEventListener(FocusEvent.FOCUS_OUT, TxtiExtenInputHandler);
+			//Fill out text inputs with correct information
+			txtiProtInput.text = protCache.toString().replace(',', ' ');
+			txtiExtenInput.text = extenCache.toString().replace(',', ' ');
 		}
 		
 		/**
@@ -100,17 +105,42 @@ package application
 		 	var protocols:Array = StringUtil.trim(txtiProtInput.text).split(" ");
 		 	//Send that array to the URLSet class
 		 	urlSet.allowedProtocols = protocols;
-		 	//Synchronize this program's protocol cache with the protocols that the URLSet class is using
+		 	//Synchronize this program's protocol cache and text input with the protocols that the URLSet class is using
 		 	protCache = protocols;
+		 	txtiProtInput.text = protCache.toString().replace(/,/g, ' ');
 		 }
 		 
-		 //Delete or restore text in the protocol text area depending on user's focus
-		 public function TxtiProtInputHandler(value:Event):void{
-		 	//If the user's focus leaves the text box and the text box is empty, put current protocols in box
-		 	if(value.type == FocusEvent.FOCUS_OUT && txtiProtInput.text == ""){
-		 		txtiProtInput.text = protCache.toString().replace(',', " ");
+		 //Extension button listener
+		 public function BtnExtenHandler(value:Event):void{
+		 	//If there's nothing in the text input box then set allowed extensions to null
+		 	if(txtiExtenInput.text == ""){
+		 		urlSet.allowedFileExtensions = null;
+		 		extenCache = [];
+		 		return;
 		 	}
+		 	//Convert the string from the text input to an array after trimming it
+		 	var extensions:Array = StringUtil.trim(txtiExtenInput.text).split(" ");
+		 	//Send that array to the URLSet class
+		 	urlSet.allowedFileExtensions = extensions;
+		 	//Synchronize this program's protocol cache and text input with the protocols that the URLSet class is using
+		 	extenCache = extensions;
+		 	txtiExtenInput.text = extenCache.toString().replace(/,/g, ' ');
+		 }
+		 
+		 //Restore text in the protocol text area if the user leaves it blank without committing the data
+		 public function TxtiProtInputHandler(value:Event):void{
+		 	//If the user's focus leaves the text box and don't commit the data, put current protocols in box
+		 	if(value.type == FocusEvent.FOCUS_OUT && getFocus() != btnProt){
+		 		txtiProtInput.text = protCache.toString().replace(/,/g, ' ');
+		 	}
+		 }
 		 	
+		 //Restore text in the extension text area if the user leaves it blank without committing the data
+		 public function TxtiExtenInputHandler(value:Event):void{
+		 	//If the user's focus leaves the text box and don't commit the data, put current extensions in box
+		 	if(value.type == FocusEvent.FOCUS_OUT && getFocus() != btnExten){
+		 		txtiExtenInput.text = extenCache.toString().replace(/,/g, ' ');
+		 	}
 		 }
 	}
 }
