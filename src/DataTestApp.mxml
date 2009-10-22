@@ -1,57 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com:ApplicationClass xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:com="application.*" layout="absolute" width="300" height="400">
-	<mx:VBox verticalGap="10" x="0" y="0" width="100%" height="100%" backgroundColor="#000000" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10">
+	<mx:VBox verticalGap="5" x="0" y="0" width="100%" height="100%" backgroundColor="#E2E0FF" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10">
+		<mx:Label width="100%" text="URLSet Test App (Now In Blue!)" fontSize="20" textAlign="center" color="#403F5A" paddingBottom="0" paddingTop="-2" height="25" fontWeight="bold" fontFamily="Calibri"/>
 	  
 	  <!-- Application header -->
-	  <mx:Label width="100%" text="URLSet Test Application" fontSize="18" textAlign="center" fontWeight="bold" color="#DBAB6C" paddingBottom="0" paddingTop="0"/>
-	  
 		<!-- URLSet allowed setting region -->
-		<mx:VBox width="100%" verticalGap="5" backgroundColor="#9F9C86" horizontalAlign="center" paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="10" borderThickness="2" borderColor="#FFFFFF" borderStyle="solid">
+		<mx:VBox width="100%" verticalGap="5" backgroundColor="#6F6E9D" horizontalAlign="center" paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="10" borderThickness="2" borderColor="#FFFFFF" borderStyle="solid">
+		  <mx:Label text="Options" fontSize="15" paddingTop="-2" paddingBottom="0" color="#FFFFFF" height="20" width="100%" textAlign="center" fontWeight="bold"/>
 		
 		  <!-- Allowed protocols region -->
-		  <mx:VBox width="100%" verticalGap="0">
+		  <mx:VBox width="100%" verticalGap="0" borderStyle="solid" borderThickness="2" borderColor="#FFFFFF">
 		    <mx:HBox width="100%" verticalAlign="middle" horizontalGap="1">
-		      <mx:Label text="Protocols" color="#63715A" fontSize="14" fontWeight="bold"/>
-		      <mx:Label text="(comma separated)" color="#F4E6D3" fontSize="10"/>
+		      <mx:Label text="Protocols" color="#FFFFFF" fontSize="14" fontWeight="bold"/>
+		      <mx:Label text="(comma separated)" color="#FFFFFF" fontSize="10"/>
 		    </mx:HBox>
-		    <mx:TextInput width="100%" id="txtiProtInput"/>
+		    <mx:TextInput width="100%" id="txtiProtInput" backgroundColor="#E2E0FF"/>
 		  </mx:VBox>
 		
 		  <!-- Allowed extensions region -->
-		  <mx:VBox width="100%" verticalGap="0">
+		  <mx:VBox width="100%" verticalGap="0" borderStyle="solid" borderThickness="2" borderColor="#FFFFFF">
 		    <mx:HBox width="100%" verticalAlign="middle" horizontalGap="1">
-		      <mx:Label text="File extensions" color="#63715A" fontSize="14" fontWeight="bold"/>
-		      <mx:Label text="(comma separated)" color="#F4E6D3" fontSize="10"/>
+		      <mx:Label text="File Extensions" color="#FFFFFF" fontSize="14" fontWeight="bold"/>
+		      <mx:Label text="(comma separated)" color="#FFFFFF" fontSize="10"/>
 		    </mx:HBox>
-		    <mx:TextInput width="100%" id="txtiExtenInput"/>
+		    <mx:TextInput width="100%" id="txtiExtenInput" backgroundColor="#E2E0FF"/>
 		  </mx:VBox>
 		
 		</mx:VBox>
 		
 		<!-- URLSet operation region -->
-		<mx:VBox width="100%" height="100%" verticalGap="5" backgroundColor="#C6C2A7" horizontalAlign="center" paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="10" borderThickness="2" borderColor="#FFFFFF" borderStyle="solid">
+		<mx:VBox width="100%" height="100%" verticalGap="5" backgroundColor="#6F6E9D" horizontalAlign="center" paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="10" borderThickness="2" borderColor="#FFFFFF" borderStyle="solid">
+		  <mx:Label text="URLs" fontSize="15" paddingTop="-2" paddingBottom="0" color="#FFFFFF" height="20" width="100%" textAlign="center" fontWeight="bold"/>
 		  
 		  <!-- Add URL operation region -->
-		  <mx:HBox width="100%" horizontalAlign="center" horizontalGap="5" verticalAlign="middle">
-			  <mx:TextInput width="100%" id="txtiUrlInput"/>
-			  <mx:Button label="Add URL" id="btnAdd" color="#63715A"/>
+		  <mx:HBox width="100%" horizontalAlign="center" horizontalGap="5" verticalAlign="middle" borderStyle="solid" borderThickness="2" borderColor="#FFFFFF" cornerRadius="5">
+			  <mx:TextInput width="100%" id="txtiUrlInput" backgroundColor="#E2E0FF" height="20" borderStyle="none"/>
+			  <mx:Button label="Add URL" id="btnAdd" color="#403F5A" height="20"/>
 		  </mx:HBox>
 		  
 		  <!-- URLSet display -->
-		  <mx:List width="100%" height="100%" id="lstUrls" allowMultipleSelection="true" tabEnabled="false"/>
+		  <mx:List width="100%" height="100%" id="lstUrls" allowMultipleSelection="true" tabEnabled="false" backgroundColor="#E2E0FF"/>
 		  
 		  <mx:HBox width="100%" horizontalAlign="center">
 		    		  
 		    <!-- Delete URLs operation region -->
-		    <mx:Button label="Delete Selected URLs" id="btnDelete" color="#63715A">
+		    <mx:Button label="Delete Selected URLs" id="btnDelete" color="#403F5A">
 		      <mx:toolTip>In order to delete multiple URLs from this URLSet, hold down SHIFT or CNTRL while selecting the URLs</mx:toolTip>
 		    </mx:Button>
-		  
-		    <!-- Check URLs operation region -->
-		    <mx:Button label="Check all URLs" id="btnCheck" color="#63715A">
-		      <mx:toolTip>When pressed, this button will check all of the existing URLs in this URLSet based upon the allowed protocols and file extensions specified above</mx:toolTip>
-		    </mx:Button>
-		  
 		  </mx:HBox>
 		  
 		</mx:VBox>

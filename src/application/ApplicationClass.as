@@ -16,8 +16,11 @@ package application
 	import mx.core.Application;
 	import mx.events.FlexEvent;
 	
+	
 	public class ApplicationClass extends Application
 	{
+		
+		
 		/**
 		* MXML Components
 		**/
@@ -28,26 +31,29 @@ package application
 		
 		public var btnAdd:Button;
 		public var btnDelete:Button;
-		public var btnCheck:Button;
 		
 		public var txtiExtenInput:TextInput;
 		public var txtiProtInput:TextInput;
-		
 		
 		
 		/**
 		 * Variables
 		 **/
 		 
+		 
 		 public var urlSet:URLSet;
+		 
 		 
 		/**
 		 * Constructor And Creation Complete Handler
 		 **/
+		 
+		 
 		public function ApplicationClass()
 		{
 			addEventListener(FlexEvent.CREATION_COMPLETE, creationCompleteHandler);
 		}
+		
 		
 		public function creationCompleteHandler(value:Event):void 
 		{
@@ -57,58 +63,61 @@ package application
 			//Add event listeners to buttons
 			btnAdd.addEventListener(MouseEvent.CLICK, btnAddHandler);
 			btnDelete.addEventListener(MouseEvent.CLICK, btnDeleteHandler);
-			btnCheck.addEventListener(MouseEvent.CLICK, btnCheckHandler);
 			
-			//Add event listener to add text field
+			//Add focus event listeners
+			txtiProtInput.addEventListener(FocusEvent.FOCUS_OUT, optionFocusHandler);
+			txtiExtenInput.addEventListener(FocusEvent.FOCUS_OUT, optionFocusHandler);
+			
+			//Add keyboard event listeners
 			txtiUrlInput.addEventListener(KeyboardEvent.KEY_DOWN, txtiUrlInputEnterHandler);
+			txtiProtInput.addEventListener(KeyboardEvent.KEY_DOWN, optionEnterHandler);
+			txtiExtenInput.addEventListener(KeyboardEvent.KEY_DOWN, optionEnterHandler);
 			
 			//Fill out text inputs with correct information
 			txtiProtInput.text  = 'http, https';
 			txtiExtenInput.text = '';
-			
-			//Set focus
-			txtiUrlInput.setFocus();
 		}
+		
 		
 		/**
 		 * Event Handlers
 		 **/
 		 
-		 // Respond to enter key press when on add url text input
+		 
+		 //If the user presses the enter key when focuses on the url text input, add the URL
 		 public function txtiUrlInputEnterHandler(value:KeyboardEvent):void
 		 {
 		   if (value.charCode == Keyboard.ENTER)
 		   {
-		     btnAddHandler(null); 
+		   	//Add the URL when the user presses the enter key
+		    addUrl(); 
 		   }
 		 }
 		 
-		 //Add URL button listener
+		 
+		 //If the user presses the add url button, add the url
 		 public function btnAddHandler(value:Event):void
 		 {
-		   var isError : Boolean = false;
-		   
-		   //Initialize URLSet filters
-		 	 setProtocols();
-		 	 setExtensions();
-		 	
-		 	 //Pass the URL from the text box "txtiUrlInput" to the URLSet instance
-		 	 try {
-		 		urlSet.addUrl(txtiUrlInput.text);
-		 	 }
-		 	 //If an error occurs, display the error to the user
-		 	 catch(error:InvalidInputError) {
-		 	   isError = true;
-		 		 Alert.show(error.message);
-		 	 }
-		 	 //If no error occurs, update the list
-		 	 lstUrls.dataProvider = urlSet.urls;
-		 		
-		 	 // Clear url from input.
-		 	 if (!isError) {
-		 	   txtiUrlInput.text = '';
-		 	 }
+		 	//Add the URL when the user presses the add url button
+		   	addUrl();
 		 }
+		 
+		 
+		 //If the user hits the enter key when focused on either the protocol text input or the extension text input, revalidate all URLs
+		  public function optionEnterHandler(value:KeyboardEvent):void{
+		  	if (value.charCode == Keyboard.ENTER){
+		  		checkUrl();
+		  	}
+		  }
+		  
+		  
+		  //If the user stops focusing on either the protocol text input or the extension text input, revalidate all URLs
+		  public function optionFocusHandler(value:Event):void{
+		  	if(value.type == FocusEvent.FOCUS_OUT){
+		  		checkUrl();
+		  	}
+		  }
+		  
 		 
 		 //Delete URL button listener
 		 public function btnDeleteHandler(value:Event):void
@@ -122,21 +131,16 @@ package application
 		 		lstUrls.dataProvider = urlSet.urls;
 		 }
 		 
-		 //Check all existing URLs
-		 public function btnCheckHandler(value:Event):void
-		 {
-		   //Initialize URLSet filters ( this SHOULD filter all non-conforming URLs )
-		 	 setProtocols();
-		 	 setExtensions();
-		 	 
-		 	 //Update the list
-		   lstUrls.dataProvider = urlSet.urls; 
-		 }
+		 
+		/**
+		 * Methods
+		 **/
+		 
 		 
 		 //Set allowed protocols based upon user input
 		 private function setProtocols(): void
 		 {
-		   //If there's nothing in the text input box then don't do anything
+		   //If there's nothing in the text input box then set allwed protocols to null
 		   if (txtiProtInput.text == "") {
 		     urlSet.allowedProtocols = null;
 		     return;
@@ -145,6 +149,7 @@ package application
 		   //Convert the string from the text input to an array and set allowed protocols
 		   urlSet.allowedProtocols = txtiProtInput.text.split(",");
 		 }
+		 
 		 
 		//Set allowed extensions based upon user input
 		private function setExtensions():void
@@ -157,6 +162,41 @@ package application
 		 	
 		 	//Convert the string from the text input to an array and set allowed extensions
 		 	urlSet.allowedFileExtensions = txtiExtenInput.text.split(",");
+		}
+		
+		
+		//Add a new URL to the list
+		private function addUrl():void{
+			//Initialize URLSet filters
+		 	 setProtocols();
+		 	 setExtensions();
+		 	
+		 	 //Pass the URL from the text box "txtiUrlInput" to the URLSet instance
+		 	 try {
+		 		urlSet.addUrl(txtiUrlInput.text);
+		 	 }
+		 	 //If an error occurs, display the error to the user and immediatly return from this function
+		 	 catch(error:InvalidInputError) {
+		 		Alert.show(error.message);
+		 		return;
+		 	 }
+		 	 
+		 	 //Update the list
+		 	 lstUrls.dataProvider = urlSet.urls;
+		 		
+		 	 //Clear url from input.
+		 	 txtiUrlInput.text = '';
+		}
+		
+		
+		//Check all currently accepted URLs to ensure that they are still valid
+		private function checkUrl():void{
+			//Initialize URLSet filters ( this SHOULD filter all non-conforming URLs )
+		 	setProtocols();
+		 	setExtensions();
+		 	 
+		 	//Update the list
+		 	lstUrls.dataProvider = urlSet.urls; 
 		}
 	}
 }
