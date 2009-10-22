@@ -5,11 +5,11 @@
 	  
 	  <!-- Application header -->
 		<!-- URLSet allowed setting region -->
-		<mx:VBox width="100%" verticalGap="5" backgroundColor="#6F6E9D" horizontalAlign="center" paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="10" borderThickness="2" borderColor="#FFFFFF" borderStyle="solid">
+		<mx:VBox width="100%" verticalGap="5" backgroundColor="#6F6E9D" horizontalAlign="center" paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="10" borderThickness="2" borderColor="#FFFFFF" borderStyle="solid" cornerRadius="5">
 		  <mx:Label text="Options" fontSize="15" paddingTop="-2" paddingBottom="0" color="#FFFFFF" height="20" width="100%" textAlign="center" fontWeight="bold"/>
 		
 		  <!-- Allowed protocols region -->
-		  <mx:VBox width="100%" verticalGap="0" borderStyle="solid" borderThickness="2" borderColor="#FFFFFF">
+		  <mx:VBox width="100%" verticalGap="0" borderStyle="solid" borderThickness="2" borderColor="#FFFFFF" cornerRadius="5">
 		    <mx:HBox width="100%" verticalAlign="middle" horizontalGap="1">
 		      <mx:Label text="Protocols" color="#FFFFFF" fontSize="14" fontWeight="bold"/>
 		      <mx:Label text="(comma separated)" color="#FFFFFF" fontSize="10"/>
@@ -18,7 +18,7 @@
 		  </mx:VBox>
 		
 		  <!-- Allowed extensions region -->
-		  <mx:VBox width="100%" verticalGap="0" borderStyle="solid" borderThickness="2" borderColor="#FFFFFF">
+		  <mx:VBox width="100%" verticalGap="0" borderStyle="solid" borderThickness="2" borderColor="#FFFFFF" cornerRadius="5">
 		    <mx:HBox width="100%" verticalAlign="middle" horizontalGap="1">
 		      <mx:Label text="File Extensions" color="#FFFFFF" fontSize="14" fontWeight="bold"/>
 		      <mx:Label text="(comma separated)" color="#FFFFFF" fontSize="10"/>
@@ -29,7 +29,7 @@
 		</mx:VBox>
 		
 		<!-- URLSet operation region -->
-		<mx:VBox width="100%" height="100%" verticalGap="5" backgroundColor="#6F6E9D" horizontalAlign="center" paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="10" borderThickness="2" borderColor="#FFFFFF" borderStyle="solid">
+		<mx:VBox width="100%" height="100%" verticalGap="5" backgroundColor="#6F6E9D" horizontalAlign="center" paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="10" borderThickness="2" borderColor="#FFFFFF" borderStyle="solid" cornerRadius="5">
 		  <mx:Label text="URLs" fontSize="15" paddingTop="-2" paddingBottom="0" color="#FFFFFF" height="20" width="100%" textAlign="center" fontWeight="bold"/>
 		  
 		  <!-- Add URL operation region -->
@@ -39,7 +39,7 @@
 		  </mx:HBox>
 		  
 		  <!-- URLSet display -->
-		  <mx:List width="100%" height="100%" id="lstUrls" allowMultipleSelection="true" tabEnabled="false" backgroundColor="#E2E0FF"/>
+		  <mx:List width="100%" height="100%" id="lstUrls" allowMultipleSelection="true" tabEnabled="false" backgroundColor="#E2E0FF" cornerRadius="5"/>
 		  
 		  <mx:HBox width="100%" horizontalAlign="center">
 		    		  
